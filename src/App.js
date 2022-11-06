@@ -1,5 +1,3 @@
-import TickerTap from "./components/tradeView/TickerTape";
-
 
 function App() {
 

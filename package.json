@@ -27,6 +27,9 @@
     "styled-components": "^5.3.6",
     "web-vitals": "^2.1.0"
   },
+  "resolution": {
+    "cssnano-preset-simple": "3.0.0"
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
