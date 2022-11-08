@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 const url = 'https://bit2me.com/widget/crypto-carousel/v1'
 
-export default function TradeViewWithLogo() {
+export default function Trade() {
   return (
     <Wrapper>
-        <Content src={url} />        
+      <Content src={url} />
     </Wrapper>
   )
 }

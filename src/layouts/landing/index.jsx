@@ -3,7 +3,7 @@ import Header from './header/Header';
 import Footer from './footer/Footer';
 
 export default function Landing({ children }) {
-    const [openMenu, setOpenMenu] = useState(true);
+    const [openMenu, setOpenMenu] = useState(false);
 
     return (
         <div>

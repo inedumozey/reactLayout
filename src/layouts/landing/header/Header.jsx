@@ -26,6 +26,7 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 import { EffectFade } from 'swiper';
+import Trade from '../../../components/tradeView/Ticker';
 
 
 export default function Header({ openMenu, setOpenMenu }) {
@@ -84,7 +85,6 @@ export default function Header({ openMenu, setOpenMenu }) {
                         })
                     }
                     <div
-                        onClick={() => setOpenMenu(false)}
                         style={{ marginTop: '35px' }}
                         lassName="login">
                         <Btn>LOGIN</Btn>
@@ -95,45 +95,50 @@ export default function Header({ openMenu, setOpenMenu }) {
             {
                 isHomeRoute ?
 
-                    <Container onClick={() => setOpenMenu(false)} className='bs-container home-page' fluid>
-                        <Swiper
-                            modules={[Navigation, EffectFade, Autoplay, Pagination, A11y]}
-                            loop
-                            scrollbar={{ draggable: true }}
-                            autoplay={{ delay: 4000 }}
-                            pagination={{ clickable: true }}
-                            style={{ width: '100%', height: '100%' }}
-                            className="swiper"
-                            onSlideChange={() => setStart("false")}
-                            onSlideChangeTransitionEnd={() => setStart("true")}
-                        >
-                            {
-                                swiperImages?.map((img, i) => {
-                                    return <SwiperSlide key={i} className='slide'>
-                                        <Image className='swiper-img' style={{ width: '100%', height: '100%', objectFit: 'cover' }} src={img} fluid />
-                                    </SwiperSlide>
-                                })
-                            }
+                    <div>
+                        <Container onClick={() => setOpenMenu(false)} className='bs-container home-page' fluid>
+                            <Swiper
+                                modules={[Navigation, EffectFade, Autoplay, Pagination, A11y]}
+                                loop
+                                scrollbar={{ draggable: true }}
+                                autoplay={{ delay: 4000 }}
+                                pagination={{ clickable: true }}
+                                style={{ width: '100%', height: '100%' }}
+                                className="swiper"
+                                onSlideChange={() => setStart("false")}
+                                onSlideChangeTransitionEnd={() => setStart("true")}
+                            >
+                                {
+                                    swiperImages?.map((img, i) => {
+                                        return <SwiperSlide key={i} className='slide'>
+                                            <Image className='swiper-img' style={{ width: '100%', height: '100%', objectFit: 'cover' }} src={img} fluid />
+                                        </SwiperSlide>
+                                    })
+                                }
 
-                        </Swiper>
-                        <div className="overlay overlay1">
-                            <span style={{ marginRight: '10px', cursor: 'pointer' }}>{contact.email}</span>
-                            <span style={{ marginRight: '10px', cursor: 'pointer' }}>{contact.mobile}</span>
-                        </div>
-                        <div className="overlay overlay2">
-                            <Link to="/" className='left'>
-                                <img style={{ width: '100%' }} src="/logo.png" />
-                            </Link>
-                            <div className="right">
-                                <div className='link' style={{ margin: '0 10px' }}><Links link={link} /></div>
-                                <div className="login"><Btn>LOGIN</Btn></div>
+                            </Swiper>
+                            <div className="overlay overlay1">
+                                <span style={{ marginRight: '10px', cursor: 'pointer' }}>{contact.email}</span>
+                                <span style={{ marginRight: '10px', cursor: 'pointer' }}>{contact.mobile}</span>
                             </div>
+                            <div className="overlay overlay2">
+                                <Link to="/" className='left'>
+                                    <img style={{ width: '100%' }} src="/logo.png" />
+                                </Link>
+                                <div className="right">
+                                    <div className='link' style={{ margin: '0 10px' }}><Links link={link} /></div>
+                                    <div className="login"><Btn>LOGIN</Btn></div>
+                                </div>
+                            </div>
+                            <div className="overlay overlay3">
+                                <div>Secure and easy way to <br /> Invest</div>
+                                <Btn padding={"15px 25px"}>GET STARTED</Btn>
+                            </div>
+                        </Container>
+                        <div>
+                            <Trade />
                         </div>
-                        <div className="overlay overlay3">
-                            <div>Secure and easy way to <br /> Invest</div>
-                            <Btn padding={"15px 25px"}>GET STARTED</Btn>
-                        </div>
-                    </Container> :
+                    </div> :
                     <Container style={{ position: 'relative' }} className='bs-container none-home-page' fluid>
                         <Image style={{ width: '100%', height: '100%', objectFit: 'cover' }} src="/hero2.jpg" />
                         <div className="overlay overlay1">
