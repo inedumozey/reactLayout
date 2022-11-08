@@ -12,10 +12,6 @@ import {
 } from "react-router-dom";
 
 const theme = {
-  headerHeight: '60px',
-  footerHeight: '350px',
-  sidebarWidth_lg: '200px',
-  sidebarWidth_md: '60px',
   sm_screen: '600px',
   md_screen: '900px',
   xl_screen: '1500px',

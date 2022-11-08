@@ -66,7 +66,7 @@ const GlobalStyle = createGlobalStyle`
         position: relative;
         min-height: 100vh;
         min-height: auto;
-        // overflow-x: hidden;
+        overflow-x: hidden;
         color: #000000bf;
 
         .bs-container {
@@ -102,23 +102,7 @@ const GlobalStyle = createGlobalStyle`
     }
 `
 
-const Header = styled.div`
-  width: 100%;
-  height: ${({ theme }) => theme.headerHeight};
-`
-const Main = styled.div`
-  width: 100%;
-  min-height: ${({ theme }) => `calc(100vh - ${theme.headerHeight} - ${theme.footerHeight})`};
-`
-const Footer = styled.div`
-  width: 100%;
-  min-height: ${({ theme }) => theme.footerHeight};;
-`
-
 export {
   GlobalStyle,
-  Header,
-  Main,
-  Footer,
   ScrollBar,
 };

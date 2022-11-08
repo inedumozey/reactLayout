@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import Btn from '../../../components/Btn/Btn';
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import styled from 'styled-components'
 import Container from 'react-bootstrap/Container';
-import { useLocation } from "react-router-dom";
 import Image from 'react-bootstrap/Image';
 import Links from '../Links';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -28,16 +27,17 @@ import 'swiper/css/scrollbar';
 import { EffectFade } from 'swiper';
 import Trade from '../../../components/tradeView/Ticker';
 
+const contact = {
+    email: 'admin@extractcoinmart.com',
+    mobile: '+1(918) 280-8396'
+}
+
 
 export default function Header({ openMenu, setOpenMenu }) {
     const location = useLocation();
     const [stick, setStick] = useState(true)
     const isHomeRoute = location.pathname === '/'
     const [start, setStart] = useState("true");
-    const contact = {
-        email: 'admin@extractcoinmart.com',
-        mobile: '+12623745185'
-    }
 
     const link = [
         { url: '/', name: 'Home' },
@@ -118,8 +118,8 @@ export default function Header({ openMenu, setOpenMenu }) {
 
                             </Swiper>
                             <div className="overlay overlay1">
-                                <span style={{ marginRight: '10px', cursor: 'pointer' }}>{contact.email}</span> | {" "}
-                                <span style={{ marginRight: '10px', cursor: 'pointer' }}>{contact.mobile}</span>
+                                <a href={`mailto:${contact.email}`} style={{ marginRight: '10px', cursor: 'pointer' }}>{contact.email}</a>
+                                <a href={`tel:+${contact.mobile}`} style={{ marginRight: '10px', cursor: 'pointer' }}>{contact.mobile}</a>
                             </div>
                             <div className="overlay overlay2">
                                 <Link to="/" className='left'>
@@ -142,8 +142,8 @@ export default function Header({ openMenu, setOpenMenu }) {
                     <Container style={{ position: 'relative' }} className='bs-container none-home-page' fluid>
                         <Image style={{ width: '100%', height: '100%', objectFit: 'cover' }} src="/hero2.jpg" />
                         <div className="overlay overlay1">
-                            <span style={{ marginRight: '10px', cursor: 'pointer' }}>{contact.email}</span> | {" "}
-                            <span style={{ marginRight: '10px', cursor: 'pointer' }}>{contact.mobile}</span>
+                            <a href={`mailto:${contact.email}`} style={{ marginRight: '10px', cursor: 'pointer' }}>{contact.email}</a>
+                            <a href={`tel:+${contact.mobile}`} style={{ marginRight: '10px', cursor: 'pointer' }}>{contact.mobile}</a>
                         </div>
                         <div className="overlay overlay2">
                             <Link to="/" className='left'>
@@ -176,6 +176,8 @@ const HeaderStyle = styled.div`
     font-size: .8rem;
     transition: ${({ theme }) => theme.transition};
     position: relative;
+    width: 100%;
+    height: 100%;
 
     .nav{
         display: flex;
@@ -218,18 +220,15 @@ const HeaderStyle = styled.div`
                 cursor: pointer;
 
                 @media (min-width: ${({ theme }) => theme.md_screen}){
-                    &{
-                        display: none;
-                    }
+                    display: none;
                 }
             }
         }
 
         @media (max-width: ${({ theme }) => theme.md_screen}){
-            &{
-                padding: 0 ${({ theme }) => theme.md_padding};
-                transform: translateY(0);
-            }
+            padding: 0 ${({ theme }) => theme.md_padding};
+            transform: translateY(0);
+
             .link {
                 display: none;
             }
@@ -239,9 +238,8 @@ const HeaderStyle = styled.div`
         }
 
         @media (max-width: ${({ theme }) => theme.sm_screen}){
-            &{
-                padding: 0 ${({ theme }) => theme.sm_padding};
-            }
+            padding: 0 ${({ theme }) => theme.sm_padding};
+
             .right {
                 width: 20%;
             }
@@ -273,6 +271,7 @@ const HeaderStyle = styled.div`
             max-width: 600px;
             padding: 0 ${({ theme }) => theme.sm_padding};
             margin: auto;
+            font-weight: 600;
 
             .url-link {
                 display: block;
@@ -283,15 +282,13 @@ const HeaderStyle = styled.div`
             .url-active {
                 color: var(--yellow);
             }
-
         }
-
     }
     
     .bs-container {
         position: relative;
         width: 100%;
-        height: 94vh;
+        height: calc(100vh - 42px);
         overflow: hidden;
 
         .overlay{
@@ -302,22 +299,17 @@ const HeaderStyle = styled.div`
             color: #fff;
             z-index: 10;
             padding: 0 ${({ theme }) => theme.lg_padding};
-
             @media (max-width: ${({ theme }) => theme.md_screen}){
-                &{
-                    padding: 0 ${({ theme }) => theme.md_padding};
-                }
+                padding: 0 ${({ theme }) => theme.md_padding};
             }
             @media (max-width: ${({ theme }) => theme.sm_screen}){
-                &{
-                    padding: 0 ${({ theme }) => theme.sm_padding};
-                }
+                padding: 0 ${({ theme }) => theme.sm_padding};
             }
         }
 
         .overlay1 {
             top: 0;
-            font-size: 1rem;
+            font-size: .8rem;
             font-weight: 600;
             padding-top: 10px;
             color: #ccc;
@@ -341,10 +333,8 @@ const HeaderStyle = styled.div`
             transform:  translateY(0);
             
             @media (max-width: ${({ theme }) => theme.md_screen}){
-                &{
-                    transform:  translateY(-1000%);
-                    z-index: -1;
-                }
+                transform:  translateY(-1000%);
+                z-index: -1;
             }
 
             .left{
@@ -385,7 +375,7 @@ const HeaderStyle = styled.div`
 
             div {
                 font-size: 6vw;
-                font-weight: 500;
+                font-weight: 600;
                 line-height: 6vw;
                 margin-bottom: 10px;
                 text-align: center;
@@ -443,18 +433,11 @@ const HeaderStyle = styled.div`
                 width: 100%;
                 z-index: 1;
             }
-        }
-
-        @media (max-width: ${({ theme }) => theme.md_screen}){
-            margin-top: 65px;
-            height: calc(94vh - 65px);
-        }
-
-        
+        }        
     }
 
     .none-home-page {
-        height: 463px;
+        height: calc(100vh - 153px);
         position: relative;
         z-index: 1;
 
