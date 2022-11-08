@@ -131,7 +131,7 @@ export default function Header({ openMenu, setOpenMenu }) {
                                 </div>
                             </div>
                             <div className="overlay overlay3">
-                                <div>Secure and easy way to <br /> Invest</div>
+                                <div>Secure and Easy way to <br /> Invest</div>
                                 <Btn padding={"15px 25px"}>GET STARTED</Btn>
                             </div>
                         </Container>
