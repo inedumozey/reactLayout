@@ -118,7 +118,7 @@ export default function Header({ openMenu, setOpenMenu }) {
 
                             </Swiper>
                             <div className="overlay overlay1">
-                                <span style={{ marginRight: '10px', cursor: 'pointer' }}>{contact.email}</span>
+                                <span style={{ marginRight: '10px', cursor: 'pointer' }}>{contact.email}</span> | {" "}
                                 <span style={{ marginRight: '10px', cursor: 'pointer' }}>{contact.mobile}</span>
                             </div>
                             <div className="overlay overlay2">
@@ -142,7 +142,7 @@ export default function Header({ openMenu, setOpenMenu }) {
                     <Container style={{ position: 'relative' }} className='bs-container none-home-page' fluid>
                         <Image style={{ width: '100%', height: '100%', objectFit: 'cover' }} src="/hero2.jpg" />
                         <div className="overlay overlay1">
-                            <span style={{ marginRight: '10px', cursor: 'pointer' }}>{contact.email}</span>
+                            <span style={{ marginRight: '10px', cursor: 'pointer' }}>{contact.email}</span> | {" "}
                             <span style={{ marginRight: '10px', cursor: 'pointer' }}>{contact.mobile}</span>
                         </div>
                         <div className="overlay overlay2">
@@ -291,6 +291,7 @@ const HeaderStyle = styled.div`
     .bs-container {
         position: relative;
         width: 100%;
+        height: 94vh;
         overflow: hidden;
 
         .overlay{
@@ -371,12 +372,16 @@ const HeaderStyle = styled.div`
         }
 
         .overlay3 {
-            top: 450px;
+            top: 50%;
             height: 100px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: space-around;
+
+            @media (max-width: ${({ theme }) => theme.sm_screen}){
+                top: 45%;
+            }
 
             div {
                 font-size: 6vw;
@@ -385,17 +390,19 @@ const HeaderStyle = styled.div`
                 margin-bottom: 10px;
                 text-align: center;
 
-                @media (max-width: ${({ theme }) => theme.sm_screen}){
-                    &{
-                        font-size: 1.6rem;
-                    }
-                }
                 @media (min-width: ${({ theme }) => theme.xl_screen}){
-                    &{
-                        font-size: 3rem;
-                    }
+                    font-size: 3rem;
+                }
+                @media (max-width: ${({ theme }) => theme.md_screen}){
+                    font-size: 2.5rem;
+                    line-height: 3rem;
+                }
+                @media (max-width: ${({ theme }) => theme.sm_screen}){
+                    font-size: 2rem;
+                    line-height: 3rem;
                 }
             }
+
         }
 
         .overlay4 {
@@ -436,16 +443,14 @@ const HeaderStyle = styled.div`
                 width: 100%;
                 z-index: 1;
             }
-
-            .swiper-img {
-                // transform: scale(0.5)
-            }
         }
 
         @media (max-width: ${({ theme }) => theme.md_screen}){
             margin-top: 65px;
-            height: 100vh
+            height: calc(94vh - 65px);
         }
+
+        
     }
 
     .none-home-page {
