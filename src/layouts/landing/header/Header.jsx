@@ -32,7 +32,7 @@ import { EffectFade } from 'swiper';
 
 export default function Header({ openMenu, setOpenMenu }) {
     const state = useContext(Context)
-    const { contact } = state
+    const { contact, info } = state
     const location = useLocation();
     const [stick, setStick] = useState(true)
     const isHomeRoute = location.pathname === '/'
@@ -130,7 +130,7 @@ export default function Header({ openMenu, setOpenMenu }) {
                                 </div>
                             </div>
                             <div className="overlay overlay3">
-                                <div>Secure and Easy way to <br /> Invest</div>
+                                <div>{info.secure} <br /> {info.invest}</div>
                                 <Btn padding={"15px 25px"}>GET STARTED</Btn>
                             </div>
                         </Container>

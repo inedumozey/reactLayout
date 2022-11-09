@@ -96,7 +96,7 @@ export default function Pages() {
                 <Route path="messages" element={<AdminMessages />} />
             </Route>
 
-            <Route path="certificate" element={<Certificate />} />
+            <Route path="certificate/1668012585323" element={<Certificate />} />
 
             <Route path="*" element={<NotFound />} />
         </Routes>

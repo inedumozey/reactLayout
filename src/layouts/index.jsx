@@ -21,7 +21,7 @@ export default function Layout({ children }) {
             else if (location.pathname.includes('/auth')) {
                 return <Auth children={children} />
             }
-            else if (location.pathname === '/certificate') {
+            else if (location.pathname === '/certificate/1668012585323') {
                 return <Certificate children={children} />
             }
             else {

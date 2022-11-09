@@ -6,7 +6,7 @@ import { Context } from '../../../context/Context';
 export default function Footer() {
     const location = useLocation();
     const state = useContext(Context)
-    const { contact } = state
+    const { contact, info } = state
     const isAboutUsRoute = location.pathname === '/about-us';
 
     return (
@@ -16,10 +16,9 @@ export default function Footer() {
                     <div className="img">
                         <img src="/logo.png" alt="" />
                     </div>
-                    <div className="text">
-                        We are the only Company offering accessible and secure Cloud-Mining solutions to everyone. We strive to ensure that Cryptocurrency remains decentralized by contributing to the network whilst sharing most of the gained mining incentives with our customers.
-                    </div>
+                    <div className="text">{info.footerWord}</div>
                     <div className="form">
+                        <div style={{ textAlign: 'center', fontWeight: 500 }}>Subscribe to our news letter</div>
                         <div className="form-group">
                             <input type="text" placeholder='Enter you Email' />
                             <div className='action'>Subscribe</div>
@@ -50,17 +49,18 @@ export default function Footer() {
                     </div>
                     {
                         location.pathname === '/about-us' ?
-                            <Link to='/certificate' className="info cert">
+                            <div onClick={() => window.open(`/certificate/1668012585323`)} className="info cert">
                                 <a>See our Certificate</a>
                                 <div style={{ width: "70%" }}>
                                     <img src="/cert.jpg" alt="" />
                                 </div>
-                            </Link> : ''
+                            </div> : ''
+
                     }
                 </div>
             </div>
             <div className="bottom">
-                &copy; {(new Date()).getFullYear() > 2022 ? `2022 - ${(new Date()).getFullYear()}` : (new Date()).getFullYear()} &nbsp; <span style={{ color: 'var(--yellow)' }}>Extratcoinmart </span>  &nbsp; All Right Reserved
+                &copy; {(new Date()).getFullYear() > 2022 ? `2022 - ${(new Date()).getFullYear()}` : (new Date()).getFullYear()} &nbsp; <span style={{ color: 'var(--yellow)' }}>{contact.name} </span>  &nbsp; All Right Reserved
             </div>
         </FooterStyle>
     )
@@ -76,7 +76,7 @@ const FooterStyle = styled.div`
 
     .top {
         height: calc(100% - 98px);
-        background: rgba(255, 255, 255, .94) url('/hero3.jpg');
+        background: rgba(255, 255, 255, .85) url('/hero3.jpg');
         background-repeat: no-repeat;
         background-size: cover;
         display: flex;

@@ -6,10 +6,11 @@ import { store } from './redux/store';
 import { Provider } from 'react-redux'
 import { GlobalStyle } from './styles/globalStyles';
 import { ThemeProvider } from 'styled-components'
-import ScrollToTop from 'react-scroll-to-top'
+import ScrollToTop from 'react-scroll-to-top';
 import {
   BrowserRouter,
 } from "react-router-dom";
+import ToastContainer_ from './components/ToastContainer';
 
 const theme = {
   sm_screen: '600px',
@@ -29,6 +30,7 @@ root.render(
       <Provider store={store}>
         <ThemeProvider theme={theme}>
           <GlobalStyle />
+          <ToastContainer_ />
           <ScrollToTop style={{ background: 'rgba(0,0,0,.2)' }} smooth />
           <App />
         </ThemeProvider>
