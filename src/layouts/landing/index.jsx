@@ -9,7 +9,7 @@ export default function Landing({ children }) {
     const isHomeRoute = location.pathname === '/'
     const headerHeight_full = '100vh'
     const headerHeight_mid = '77.8vh'
-    const footerHeight = '100vh'
+    const footerHeight = '300px'
 
     return (
         <div>

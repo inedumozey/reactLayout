@@ -1,6 +1,8 @@
 import react, { useState, useEffect } from 'react';
 import Pages from './pages';
 import Layout from './layouts';
+import { Context, state } from './context/Context';
+
 
 function App() {
   const preloader = document.getElementById('preloader')
@@ -15,9 +17,11 @@ function App() {
   })
 
   return (
-    <Layout>
-      <Pages />
-    </Layout>
+    <Context.Provider value={state}>
+      <Layout>
+        <Pages />
+      </Layout>
+    </Context.Provider>
   )
 }
 

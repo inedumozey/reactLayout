@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import Btn from '../../../components/Btn/Btn';
 import { Link, useLocation } from "react-router-dom";
 import styled from 'styled-components'
@@ -7,6 +7,9 @@ import Image from 'react-bootstrap/Image';
 import Links from '../Links';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
+import Trade from '../../../components/tradeView/Ticker';
+import { Context } from '../../../context/Context';
+
 
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -25,15 +28,11 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 import { EffectFade } from 'swiper';
-import Trade from '../../../components/tradeView/Ticker';
-
-const contact = {
-    email: 'admin@extractcoinmart.com',
-    mobile: '+1(918) 280-8396'
-}
 
 
 export default function Header({ openMenu, setOpenMenu }) {
+    const state = useContext(Context)
+    const { contact } = state
     const location = useLocation();
     const [stick, setStick] = useState(true)
     const isHomeRoute = location.pathname === '/'
@@ -86,7 +85,7 @@ export default function Header({ openMenu, setOpenMenu }) {
                     }
                     <div
                         style={{ marginTop: '35px' }}
-                        lassName="login">
+                        className="login">
                         <Btn>LOGIN</Btn>
                     </div>
                 </div>

@@ -38,6 +38,7 @@ const GlobalStyle = createGlobalStyle`
         --white: #fff;
         --gray: #6c757d;
         --gray-dark: #343a40;
+        --gray-light: #bdbdbd40;
         --text: #000000bf;
         --primary: #007bff;
         --secondary: #6c757d;
@@ -68,6 +69,7 @@ const GlobalStyle = createGlobalStyle`
         min-height: auto;
         overflow-x: hidden;
         color: #000000bf;
+        font-size: .9rem;
 
         .bs-container {
           padding: 0;

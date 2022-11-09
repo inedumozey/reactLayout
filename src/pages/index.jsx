@@ -1,4 +1,5 @@
 import { Routes, Route } from "react-router-dom";
+import Image from 'react-bootstrap/Image';
 
 // landing pages
 import Plans from './landing/Plans';
@@ -41,6 +42,9 @@ import AdminAppConfig from './admin/AppConfig';
 import AdminInvestmentPackages from './admin/Plans';
 import AdminMessages from './admin/Messages';
 import AdminWithdrawal from './admin/Withdrawal';
+
+//certificate model page
+import Certificate from "./certificate/Certificate";
 
 
 
@@ -92,7 +96,10 @@ export default function Pages() {
                 <Route path="messages" element={<AdminMessages />} />
             </Route>
 
+            <Route path="certificate" element={<Certificate />} />
+
             <Route path="*" element={<NotFound />} />
         </Routes>
     )
 }
+
