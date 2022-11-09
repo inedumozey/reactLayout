@@ -5,14 +5,14 @@ import styled from 'styled-components';
 import VpnKeyRoundedIcon from '@mui/icons-material/VpnKeyRounded';
 import RemoveRedEyeRoundedIcon from '@mui/icons-material/RemoveRedEyeRounded';
 import VisibilityOffRoundedIcon from '@mui/icons-material/VisibilityOffRounded';
-import EmailRoundedIcon from '@mui/icons-material/EmailRounded';
-import PersonRoundedIcon from '@mui/icons-material/PersonRounded';
 import Btn from '../Btn/Btn';
 import Cookies from "js-cookie";
+import Spinner_ from '../spinner/Spinner';
 
 export default function ForgotPassword_C() {
     const [showPassword, setShowPassword] = useState(false);
     const [showCPassword, setShowCPassword] = useState(false);
+    const [sending, setSending] = useState(false);
 
     const intitialState = {
         password: '',
@@ -29,16 +29,17 @@ export default function ForgotPassword_C() {
     // submit form
     const submit = (e) => {
         e.preventDefault();
+        setSending(true)
         console.log(inp)
     }
 
     return (
         <Wrapper>
             <MDBContainer fluid className="p-3h-custom">
-                <h3 style={{ textAlign: 'center', color: 'var(--blue)', fontSize: '1rem' }}>RESET YOUR PASSWORD</h3>
+                <h3 style={{ textAlign: 'center', color: 'var(--blue)', fontSize: '1.5rem' }}>RESET YOUR PASSWORD</h3>
                 <MDBRow>
 
-                    <MDBCol col='10' md='6'>
+                    <MDBCol style={{ maxWidth: '500px' }} col='10' md='6'>
                         <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp" className="img-fluid" alt="Sample image" />
                     </MDBCol>
 
@@ -79,7 +80,9 @@ export default function ForgotPassword_C() {
                             </InputWrapper>
 
                             <div className='text-center text-md-start mt- pt-2'>
-                                <Btn color="var(--blue)" link={false}>Sign Up</Btn>
+                                <Btn disabled={sending} color="var(--blue)" link={false}>
+                                    {sending ? <Spinner_ size="sm" /> : "Reset"}
+                                </Btn>
                                 <p className="small fw-bold mt-2 pt-1 mb-2">
                                     Have an account? <Link to="/auth/signin" className="link-danger">Sign in</Link>
                                 </p>

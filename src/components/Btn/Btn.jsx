@@ -2,11 +2,19 @@ import { Link } from "react-router-dom";
 import styled from 'styled-components';
 import { useSnap } from '@mozeyinedu/hooks-lab';
 
-export default function Btn({ children, padding = "8px 25px", onClick, color = "var(--yellow)", link = true }) {
+export default function Btn({
+    children,
+    padding = "8px 25px",
+    onClick,
+    color = "var(--yellow)",
+    link = true,
+    disabled
+
+}) {
     const { snap } = useSnap(.5);
 
     return (
-        <Wrapper className="btn" {...snap()} onClick={onClick} padding={padding} color={color}>
+        <Wrapper disabled={disabled} className="btn" onClick={onClick} {...snap()} padding={padding} color={color}>
             {
                 link ? <Link to="/auth/signin" >{children}</Link> : children
             }
@@ -24,6 +32,14 @@ const Wrapper = styled.button`
     font-weight: 700;
     border-radius: 3px;
     outline: none;
+    min-width: 130px;
+
+    &:disabled {
+        color: ${({ color }) => color};
+        border: 2px solid ${({ color }) => color};
+        background: #fff;
+        min-width: 130px;
+    }
 
     &:hover{
         color: ${({ color }) => color};

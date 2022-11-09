@@ -7,18 +7,26 @@ import RemoveRedEyeRoundedIcon from '@mui/icons-material/RemoveRedEyeRounded';
 import VisibilityOffRoundedIcon from '@mui/icons-material/VisibilityOffRounded';
 import EmailRoundedIcon from '@mui/icons-material/EmailRounded';
 import PersonRoundedIcon from '@mui/icons-material/PersonRounded';
+import LocalPhoneRoundedIcon from '@mui/icons-material/LocalPhoneRounded';
+import AlternateEmailRoundedIcon from '@mui/icons-material/AlternateEmailRounded';
+import FlagRoundedIcon from '@mui/icons-material/FlagRounded';
 import Btn from '../Btn/Btn';
 import Cookies from "js-cookie";
+import Spinner_ from '../spinner/Spinner';
 
 export default function Signup_C() {
     const [showPassword, setShowPassword] = useState(false);
     const [showCPassword, setShowCPassword] = useState(false);
+    const [sending, setSending] = useState(false);
 
     const intitialState = {
         email: '',
         username: '',
         password: '',
-        cpassword: ''
+        cpassword: '',
+        mobile: '',
+        country: '',
+        address: ''
     }
     const [inp, setInpt] = useState(intitialState);
 
@@ -31,13 +39,14 @@ export default function Signup_C() {
     // submit form
     const submit = (e) => {
         e.preventDefault();
+        setSending(true)
         console.log(inp)
     }
 
     return (
         <Wrapper>
             <MDBContainer fluid className="p-3h-custom">
-                <h3 style={{ textAlign: 'center', color: 'var(--blue)', fontSize: '1rem' }}>SIGN UP</h3>
+                <h3 style={{ textAlign: 'center', color: 'var(--blue)', fontSize: '1.5rem' }}>SIGN UP</h3>
                 <MDBRow>
 
                     <MDBCol col='10' md='6'>
@@ -107,12 +116,60 @@ export default function Signup_C() {
                                 </InputIcon>
                             </InputWrapper>
 
+                            <InputWrapper>
+                                <InputIcon right="" left="0">
+                                    <LocalPhoneRoundedIcon />
+                                </InputIcon>
+                                <input
+                                    type="number"
+                                    name="mobile"
+                                    value={inp.mobile || ''}
+                                    placeholder="Phone Number"
+                                    onInput={getInput}
+                                />
+                            </InputWrapper>
+
+                            <InputWrapper>
+                                <InputIcon right="" left="0">
+                                    <FlagRoundedIcon />
+                                </InputIcon>
+                                <input
+                                    type="text"
+                                    name="country"
+                                    value={inp.country || ''}
+                                    placeholder="Country"
+                                    onInput={getInput}
+                                />
+                            </InputWrapper>
+
+                            <InputWrapper>
+                                <InputIcon right="" left="0">
+                                    <AlternateEmailRoundedIcon />
+                                </InputIcon>
+                                <input
+                                    type="text"
+                                    name="address"
+                                    value={inp.address || ''}
+                                    placeholder="Address"
+                                    onInput={getInput}
+                                />
+                            </InputWrapper>
+
+                            <div className="d-flex justify-content-between mb-2">
+                                <MDBCheckbox name='flexCheck' value='' id='flexCheckDefault' label='Accept terms' />
+                            </div>
+
                             <div className='text-center text-md-start mt- pt-2'>
-                                <Btn color="var(--blue)" link={false}>Sign Up</Btn>
+                                <p className="small mt-2 pt-1 mb-2">
+                                    By creating an account you are accepting our <Link to="/auth/signin" className="link-danger">Terms & Conditions</Link>
+                                </p>
+
+                                <Btn disabled={sending} color="var(--blue)" link={false}>
+                                    {sending ? <Spinner_ size="sm" /> : "Sign Up"}
+                                </Btn>
                                 <p className="small fw-bold mt-2 pt-1 mb-2">
                                     Have an account? <Link to="/auth/signin" className="link-danger">Sign in</Link>
                                 </p>
-
                             </div>
 
                         </form>

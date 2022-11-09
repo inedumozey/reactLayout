@@ -8,9 +8,12 @@ import VisibilityOffRoundedIcon from '@mui/icons-material/VisibilityOffRounded';
 import EmailRoundedIcon from '@mui/icons-material/EmailRounded';
 import Btn from '../Btn/Btn';
 import Cookies from "js-cookie";
+import Spinner_ from '../spinner/Spinner';
 
 export default function Signin_C() {
     const [showPassword, setShowPassword] = useState(false);
+    const [resend, setResend] = useState(false);
+    const [sending, setSending] = useState(false);
 
     const intitialState = {
         email: '',
@@ -24,17 +27,22 @@ export default function Signin_C() {
         setInpt({ ...inp, [name]: value })
     }
 
-    console.log(process.env.REACT_APP_FRONTEND_BASE_URL)
     // submit form
     const submit = (e) => {
         e.preventDefault();
+        setSending(true)
         console.log(inp)
+    }
+
+    const resendLink = () => {
+        setResend(true)
+        console.log('Link Resent')
     }
 
     return (
         <Wrapper>
             <MDBContainer fluid className="p-3h-custom">
-                <h3 style={{ textAlign: 'center', color: 'var(--blue)', fontSize: '1rem' }}>SIGN IN</h3>
+                <h3 style={{ textAlign: 'center', color: 'var(--blue)', fontSize: '1.5rem' }}>SIGN IN</h3>
                 <MDBRow>
 
                     <MDBCol col='10' md='6'>
@@ -81,10 +89,20 @@ export default function Signin_C() {
                             </div>
 
                             <div className='text-center text-md-start mt- pt-2'>
-                                <Btn color="var(--blue)">Sign In</Btn>
+                                <Btn disabled={sending} color="var(--blue)" link={false}>
+                                    {sending ? <Spinner_ size="sm" /> : "Sign In"}
+                                </Btn>
+
                                 <p className="small fw-bold mt-2 pt-1 mb-2">
                                     Don't have an account? <Link to="/auth/signup" className="link-danger">Sign up</Link>
                                 </p>
+
+                                <div className="small fw-bold mt-2 pt-1 mb-2">
+                                    Verify your Email? {
+                                        resend ? <Spinner_ size="sm" /> : <Link onClick={resendLink} className="link-danger">Resend Link</Link>
+                                    }
+
+                                </div>
 
                             </div>
 

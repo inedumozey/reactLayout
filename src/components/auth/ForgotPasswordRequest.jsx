@@ -8,9 +8,11 @@ import VisibilityOffRoundedIcon from '@mui/icons-material/VisibilityOffRounded';
 import EmailRoundedIcon from '@mui/icons-material/EmailRounded';
 import Btn from '../Btn/Btn';
 import Cookies from "js-cookie";
+import Spinner_ from '../spinner/Spinner';
+
 
 export default function ForgotPasswordRequest_C() {
-    const [showPassword, setShowPassword] = useState(false);
+    const [sending, setSending] = useState(false);
 
     const intitialState = { email: '', }
 
@@ -25,13 +27,14 @@ export default function ForgotPasswordRequest_C() {
     // submit form
     const submit = (e) => {
         e.preventDefault();
+        setSending(true)
         console.log(inp)
     }
 
     return (
         <Wrapper>
             <MDBContainer fluid className="p-3h-custom">
-                <h3 style={{ textAlign: 'center', color: 'var(--blue)', fontSize: '1rem' }}>FORGOT PASSWORD</h3>
+                <h3 style={{ textAlign: 'center', color: 'var(--blue)', fontSize: '1.5rem' }}>FORGOT PASSWORD</h3>
                 <MDBRow>
 
                     <MDBCol col='10' md='6'>
@@ -57,7 +60,9 @@ export default function ForgotPasswordRequest_C() {
                             </InputWrapper>
 
                             <div className='text-center text-md-start mt- pt-2'>
-                                <Btn color="var(--blue)">Submit</Btn>
+                                <Btn disabled={sending} color="var(--blue)" link={false}>
+                                    {sending ? <Spinner_ size="sm" /> : "Submit"}
+                                </Btn>
                             </div>
 
                         </form>
