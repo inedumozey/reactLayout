@@ -316,6 +316,11 @@ const HeaderStyle = styled.div`
             padding-bottom: 10px;
             background: rgba(4,23,46, 0.8);
 
+            @media (max-width: ${({ theme }) => theme.md_screen}){
+                margin-top: 70px;
+            }
+
+
             span:hover {
                 opacity: .4;
             }
