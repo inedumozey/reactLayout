@@ -1,7 +1,6 @@
-import React from 'react'
+import React from 'react';
+import VerifyEmail_C from '../../components/auth/VerifyEmail';
 
 export default function VerifyEmail() {
-    return (
-        <div>verifyEmail</div>
-    )
+    return <VerifyEmail_C />
 }

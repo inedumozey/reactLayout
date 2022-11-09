@@ -1,7 +1,6 @@
 import React from 'react'
+import ForgotPasswordRequest_C from '../../components/auth/ForgotPasswordRequest'
 
 export default function ForgotPasswordRequest() {
-    return (
-        <div>Forgot Password Request</div>
-    )
+    return <ForgotPasswordRequest_C />
 }

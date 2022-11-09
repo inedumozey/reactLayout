@@ -18,10 +18,12 @@ export default function Footer() {
                     </div>
                     <div className="text">{info.footerWord}</div>
                     <div className="form">
-                        <div style={{ textAlign: 'center', fontWeight: 500 }}>Subscribe to our news letter</div>
-                        <div className="form-group">
-                            <input type="text" placeholder='Enter you Email' />
-                            <div className='action'>Subscribe</div>
+                        <div>
+                            <div style={{ textAlign: 'center', fontWeight: 500 }}>Subscribe to our news letter</div>
+                            <div className="form-group">
+                                <input type="text" placeholder='Enter you Email' />
+                                <div className='action'>Subscribe</div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -106,7 +108,7 @@ const FooterStyle = styled.div`
             }
 
             .form {
-                height: 49px;
+                // height: 40px;
                 width: 100%;
                 dislay: flex;
 
@@ -115,11 +117,14 @@ const FooterStyle = styled.div`
                     width: 100%;
                     justify-content: center;  
                 }
+                @media (max-width: ${({ theme }) => theme.md_screen}){ 
+                    margin-bottom: 20px;
+                }
 
             }
             .form-group {
                 border: 1px solid #ccc;
-                height: 100%;
+                height: 40px;
                 display: flex;
                 width: 100%;
 
@@ -130,11 +135,11 @@ const FooterStyle = styled.div`
                 .action {
                     width: 75px;
                     height: 100%;
+                    line-height: 35px;
                     text-align: center;
                     background: var(--yellow);
                     color: #fff;
-                    padding: 8px;
-                    font-weight: 600;
+                    font-weight: 700;
                     cursor: pointer;
                 }
                 input {

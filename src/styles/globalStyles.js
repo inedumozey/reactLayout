@@ -70,6 +70,7 @@ const GlobalStyle = createGlobalStyle`
         overflow-x: hidden;
         color: #000000bf;
         font-size: .9rem;
+        
 
         .bs-container {
           padding: 0;

@@ -1,7 +1,6 @@
-import React from 'react'
+import React from 'react';
+import Signup_C from '../../components/auth/Signup';
 
 export default function Signup() {
-    return (
-        <div>Signup</div>
-    )
+    return <Signup_C />
 }
