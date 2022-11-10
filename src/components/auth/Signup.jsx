@@ -161,7 +161,7 @@ export default function Signup_C() {
 
                             <div className='text-center text-md-start mt- pt-2'>
                                 <p className="small mt-2 pt-1 mb-2">
-                                    By creating an account you are accepting our <Link to="/auth/signin" className="link-danger">Terms & Conditions</Link>
+                                    By creating an account you are accepting our <Link to="/auth/tc" className="link-danger">Terms & Conditions</Link>
                                 </p>
 
                                 <Btn disabled={sending} color="var(--blue)" link={false}>

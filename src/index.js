@@ -19,7 +19,7 @@ const theme = {
   lg_screen: '1000px',
   lg_padding: '60px',
   md_padding: '25px',
-  sm_padding: '10px',
+  sm_padding: '15px',
   transition: '.4s'
 }
 

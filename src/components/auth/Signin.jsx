@@ -98,8 +98,8 @@ export default function Signin_C() {
                                 </p>
 
                                 <div className="small fw-bold mt-2 pt-1 mb-2">
-                                    Verify your Email? {
-                                        resend ? <Spinner_ size="sm" /> : <Link onClick={resendLink} className="link-danger">Resend Link</Link>
+                                    Verify your email? {
+                                        resend ? <Spinner_ size="sm" /> : <Link onClick={resendLink} className="link-danger">Resend link</Link>
                                     }
 
                                 </div>

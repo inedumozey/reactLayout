@@ -63,6 +63,10 @@ export default function ForgotPasswordRequest_C() {
                                 <Btn disabled={sending} color="var(--blue)" link={false}>
                                     {sending ? <Spinner_ size="sm" /> : "Submit"}
                                 </Btn>
+
+                                <p className="small fw-bold mt-2 pt-1 mb-2">
+                                    Back to login <Link to="/auth/signin" className="link-danger">LOGIN</Link>
+                                </p>
                             </div>
 
                         </form>
