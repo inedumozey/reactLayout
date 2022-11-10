@@ -66,7 +66,7 @@ export default function VerifyEmail_C() {
                 if (!loading && fetched) {
                     return <>
                         <h3 style={{ textAlign: 'center' }}>Congratulations!</h3>
-                        <div style={{ textAlign: 'center' }}>Your account is activated. You will be redirected to your dashboard in few seconds or <Link to="/dashboard">click here</Link> to continue</div>
+                        <div style={{ textAlign: 'center' }}>Your account now is activated. You will be redirected to your dashboard in few seconds or <Link to="/dashboard">click here</Link> to continue</div>
                         <div className="img">
                             <img style={{ width: '100%', height: '100%' }} src="/check2.png" />
                         </div>
@@ -93,8 +93,8 @@ const VerifyWrapper = styled.div`
     @media (max-width: ${({ theme }) => theme.sm_screen}){
         padding: 50px ${({ theme }) => theme.sm_padding};
     }
-
-    .gif {
+    
+    .img {
         width: 20%;
         height: 20%;
         max-width: 150px;
@@ -103,12 +103,10 @@ const VerifyWrapper = styled.div`
         min-height: 100px;
     }
 
-    .img {
-        width: 20%;
-        height: 20%;
-        max-width: 150px;
-        max-height: 150px;
-        min-width: 100px;
-        min-height: 100px;
+    a {
+        color: blue;
+         &:hover {
+            opacity: .3;
+         }
     }
 `
