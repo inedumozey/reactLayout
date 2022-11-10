@@ -31,7 +31,7 @@ export default function Footer() {
                     <div className='wrapper'>
                         <h4> Service Links</h4>
                         <div><Link to="/contact">{">"}Customer Care</Link></div>
-                        <div><Link to="/tc">{">"}Terms & Conditions</Link></div>
+                        <div><Link to="/auth/tc">{">"}Terms & Conditions</Link></div>
                         <div><Link to="/login">{">"}Login</Link></div>
                     </div>
                 </div>
