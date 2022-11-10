@@ -11,7 +11,7 @@ export default function TC_C() {
 
             <p>Welcome to {contact.name} investment!</p>
 
-            <p>These terms and conditions outline the rules and regulations for the use of {contact.name} Investment's Website, located at <a href="/">{process.env.REACT_APP_FRONTEND_BASE_URL}</a></p>
+            <p>These terms and conditions outline the rules and regulations for the use of {contact.name} Investment's Website, located at <a href="/">ext</a></p>
 
             <p>By accessing this website we assume you accept these terms and conditions. Do not continue to use {contact.name} investment if you do not agree to take all of the terms and conditions stated on this page.</p>
 
