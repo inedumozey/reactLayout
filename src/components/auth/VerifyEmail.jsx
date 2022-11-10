@@ -93,7 +93,7 @@ const VerifyWrapper = styled.div`
     @media (max-width: ${({ theme }) => theme.sm_screen}){
         padding: 50px ${({ theme }) => theme.sm_padding};
     }
-    
+
     .img {
         width: 20%;
         height: 20%;
