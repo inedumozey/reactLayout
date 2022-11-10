@@ -82,10 +82,17 @@ export default function VerifyEmail_C() {
 const VerifyWrapper = styled.div`
     height: 100%;
     display: flex;
-    margin-top: 20px;
     justify-content: center;
     align-items: center;
+    font-weight: 600;
     flex-direction: column;
+    padding: 50px ${({ theme }) => theme.lg_padding};
+    @media (max-width: ${({ theme }) => theme.md_screen}){
+        padding: 50px ${({ theme }) => theme.md_padding};
+    }
+    @media (max-width: ${({ theme }) => theme.sm_screen}){
+        padding: 50px ${({ theme }) => theme.sm_padding};
+    }
 
     .gif {
         width: 20%;

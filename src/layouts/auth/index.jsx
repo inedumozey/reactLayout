@@ -10,7 +10,7 @@ export default function Auth({ children }) {
     return (
         <div>
             {
-                location.pathname === '/auth/verify-email' ? "" :
+                location.pathname.includes('/auth/verify-email') ? "" :
 
                     <Header>
                         <BackArrow onClick={() => navigate(-1)}>

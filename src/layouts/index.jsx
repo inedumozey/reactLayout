@@ -28,6 +28,7 @@ export default function Layout({ children }) {
             else if (location.pathname == '/404') {
                 return <PageNotFound children={children} />
             }
+
             else {
                 return <LandingPage children={children} />
             }
