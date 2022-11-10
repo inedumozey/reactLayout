@@ -1,4 +1,4 @@
-import react, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import Pages from './pages';
 import Layout from './layouts';
 import { Context, state } from './context/Context';
@@ -6,22 +6,25 @@ import { Context, state } from './context/Context';
 
 function App() {
   const preloader = document.getElementById('preloader')
+  const [preloading, setPreloading] = useState(true)
 
 
   // page preloader
   useEffect(() => {
-    preloader.style.opacity = '.4'
+    // preloader.style.opacity = '.4'
     setTimeout(() => {
       preloader.style.display = 'none'
+      setPreloading(false)
     }, 500)
   })
 
   return (
-    <Context.Provider value={state}>
-      <Layout>
-        <Pages />
-      </Layout>
-    </Context.Provider>
+    preloading ? "" :
+      <Context.Provider value={state}>
+        <Layout>
+          <Pages />
+        </Layout>
+      </Context.Provider>
   )
 }
 

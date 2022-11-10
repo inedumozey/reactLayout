@@ -8,7 +8,6 @@ import AboutUs from './landing/AboutUs';
 import Contacts from './landing/Contacts';
 import FAQ from './landing/FAQ';
 import Home from './landing/Home';
-import NotFound from './landing/404';
 
 //auth pages
 import Index from './auth/';
@@ -46,6 +45,10 @@ import AdminWithdrawal from './admin/Withdrawal';
 //certificate model page
 import Certificate from "./certificate/Certificate";
 
+//404 page
+import PageNotFound from "./404/PageNotFound";
+import Custome404 from "./404/Custome404";
+
 
 
 export default function Pages() {
@@ -67,7 +70,7 @@ export default function Pages() {
                 <Route path="forgot-password-request" element={<ForgotPasswordRequest />} />
                 <Route path="forgot-password" element={<ForgotPassword />} />
                 <Route path="tc" element={<TC />} />
-                <Route path="verify-email" element={<VerifyEmail />} />
+                <Route path="verify-email/:token" element={<VerifyEmail />} />
             </Route>
 
             <Route path="/dashboard">
@@ -98,7 +101,8 @@ export default function Pages() {
 
             <Route path="certificate/1668012585323" element={<Certificate />} />
 
-            <Route path="*" element={<NotFound />} />
+            <Route path="*" element={<PageNotFound />} />
+            <Route path="/404" element={<Custome404 />} />
         </Routes>
     )
 }

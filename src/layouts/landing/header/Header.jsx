@@ -114,11 +114,10 @@ export default function Header({ openMenu, setOpenMenu }) {
                                         </SwiperSlide>
                                     })
                                 }
-
                             </Swiper>
                             <div className="overlay overlay1">
-                                <a href={`mailto:${contact.email}`} style={{ marginRight: '10px', cursor: 'pointer' }}>{contact.email}</a>
-                                <a href={`tel:+${contact.mobile}`} style={{ marginRight: '10px', cursor: 'pointer' }}>{contact.mobile}</a>
+                                <a href={`mailto:${contact?.email}`} style={{ marginRight: '10px', cursor: 'pointer' }}>{contact?.email}</a>
+                                <a href={`tel:+${contact?.mobile}`} style={{ marginRight: '10px', cursor: 'pointer' }}>{contact?.mobile}</a>
                             </div>
                             <div className="overlay overlay2">
                                 <Link to="/" className='left'>
@@ -141,8 +140,8 @@ export default function Header({ openMenu, setOpenMenu }) {
                     <Container style={{ position: 'relative' }} className='bs-container none-home-page' fluid>
                         <Image style={{ width: '100%', height: '100%', objectFit: 'cover' }} src="/hero2.jpg" />
                         <div className="overlay overlay1">
-                            <a href={`mailto:${contact.email}`} style={{ marginRight: '10px', cursor: 'pointer' }}>{contact.email}</a>
-                            <a href={`tel:+${contact.mobile}`} style={{ marginRight: '10px', cursor: 'pointer' }}>{contact.mobile}</a>
+                            <a href={`mailto:${contact?.email}`} style={{ marginRight: '10px', cursor: 'pointer' }}>{contact?.email}</a>
+                            <a href={`tel:+${contact?.mobile}`} style={{ marginRight: '10px', cursor: 'pointer' }}>{contact?.mobile}</a>
                         </div>
                         <div className="overlay overlay2">
                             <Link to="/" className='left'>
@@ -156,11 +155,11 @@ export default function Header({ openMenu, setOpenMenu }) {
                         <div className="overlay overlay4">
                             {
                                 (function () {
-                                    const linkName = link.findIndex(link => {
+                                    const linkName = link?.findIndex(link => {
                                         return link.url === location.pathname
                                     })
 
-                                    return link[linkName].name?.toUpperCase()
+                                    return link[linkName]?.name?.toUpperCase()
                                 }())
                             }
                         </div>

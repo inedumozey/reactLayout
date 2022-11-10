@@ -1,6 +1,7 @@
 import React, { useContext } from 'react'
 import styled from 'styled-components';
 import { Context } from '../../context/Context';
+import { Link, useNavigate } from "react-router-dom";
 
 export default function TC_C() {
     const { contact } = useContext(Context)
@@ -11,7 +12,7 @@ export default function TC_C() {
 
             <p>Welcome to {contact.name} investment!</p>
 
-            <p>These terms and conditions outline the rules and regulations for the use of {contact.name} Investment's Website, located at <a href="/">{process.env.REACT_APP_FRONTEND_BASE_URL}</a></p>
+            <p>These terms and conditions outline the rules and regulations for the use of {contact.name} Investment's Website, located at <Link to="/">{process.env.REACT_APP_FRONTEND_BASE_URL}</Link></p>
 
             <p>By accessing this website we assume you accept these terms and conditions. Do not continue to use {contact.name} investment if you do not agree to take all of the terms and conditions stated on this page.</p>
 
@@ -36,7 +37,7 @@ export default function TC_C() {
                 <li>Redistribute content from {contact.name} investment</li>
             </ul>
 
-            <p>This Agreement shall begin on the date hereof. Our Terms and Conditions were created with the help of the <a href="/tc">Terms And Conditions </a> Template.</p>
+            <p>This Agreement shall begin on the date hereof. Our Terms and Conditions were created with the help of the <Link to="/tc">Terms And Conditions </Link> Template.</p>
 
             <p>Parts of this website offer an opportunity for users to post and exchange opinions and information in certain areas of the website. {contact.name} Investment does not filter, edit, publish or review Comments prior to their presence on the website. Comments do not reflect the views and opinions of {contact.name} Investment,its agents and/or affiliates. Comments reflect the views and opinions of the person who post their views and opinions. To the extent permitted by applicable laws, {contact.name} Investment shall not be liable for the Comments or for any liability, damages or expenses caused and/or suffered as a result of any use of and/or posting of and/or appearance of the Comments on this website.</p>
 

@@ -5,6 +5,7 @@ import LandingPage from './landing';
 import Auth from './auth';
 import Certificate from './certificate'
 import { useLocation } from "react-router-dom";
+import PageNotFound from './404/404';
 
 
 export default function Layout({ children }) {
@@ -23,6 +24,9 @@ export default function Layout({ children }) {
             }
             else if (location.pathname === '/certificate/1668012585323') {
                 return <Certificate children={children} />
+            }
+            else if (location.pathname == '/404') {
+                return <PageNotFound children={children} />
             }
             else {
                 return <LandingPage children={children} />
