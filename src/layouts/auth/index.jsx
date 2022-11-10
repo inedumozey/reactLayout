@@ -2,20 +2,25 @@ import React from 'react'
 import ArrowCircleLeftRoundedIcon from '@mui/icons-material/ArrowCircleLeftRounded';
 import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
 import styled from 'styled-components'
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, useLocation } from "react-router-dom";
 
 export default function Auth({ children }) {
     const navigate = useNavigate()
+    const location = useLocation()
     return (
         <div>
-            <Header>
-                <BackArrow onClick={() => navigate(-1)}>
-                    <ArrowCircleLeftRoundedIcon style={{ color: 'var(--blue)' }} />
-                </BackArrow>
-                <Link to="/">
-                    <HomeRoundedIcon style={{ color: 'var(--blue)' }} />
-                </Link>
-            </Header>
+            {
+                location.pathname === '/auth/verify-email' ? "" :
+
+                    <Header>
+                        <BackArrow onClick={() => navigate(-1)}>
+                            <ArrowCircleLeftRoundedIcon style={{ color: 'var(--blue)' }} />
+                        </BackArrow>
+                        <Link to="/">
+                            <HomeRoundedIcon style={{ color: 'var(--blue)' }} />
+                        </Link>
+                    </Header>
+            }
             <div>{children}</div>
         </div>
     )

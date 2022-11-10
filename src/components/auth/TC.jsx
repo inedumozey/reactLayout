@@ -175,6 +175,10 @@ const Wrapper = styled.div`
 
     h2 {
         text-align: center;
+        margin-bottom: 20px;
+    }
+    h4 {
+        margin-top: 20px;
     }
     p {
         margin-bottom: 10px;
