@@ -37,8 +37,9 @@ const Wrapper = styled.button`
     &:disabled {
         color: ${({ color }) => color};
         border: 2px solid ${({ color }) => color};
-        background: #fff;
+        background: var(--gray-light);
         min-width: 130px;
+        // color: #fff;
     }
 
     &:hover{

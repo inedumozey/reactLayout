@@ -1,4 +1,5 @@
 import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import React from 'react'
 
@@ -6,7 +7,7 @@ export default function ToastContainer_() {
   return (
     <ToastContainer
       position="top-right"
-      autoClose={5000}
+      autoClose={10000}
       hideProgressBar={false}
       newestOnTop={false}
       closeOnClick
@@ -14,6 +15,7 @@ export default function ToastContainer_() {
       pauseOnFocusLoss
       draggable
       pauseOnHover
+      theme={'colored'}
     />
   )
 }

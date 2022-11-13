@@ -9,34 +9,98 @@ import EmailRoundedIcon from '@mui/icons-material/EmailRounded';
 import Btn from '../Btn/Btn';
 import Cookies from "js-cookie";
 import Spinner_ from '../spinner/Spinner';
+import axios from 'axios'
+import { toast } from 'react-toastify';
 
 export default function Signin_C() {
     const [showPassword, setShowPassword] = useState(false);
-    const [resend, setResend] = useState(false);
     const [sending, setSending] = useState(false);
+    const [sendLink, setSendingLink] = useState(false);
 
-    const intitialState = {
-        email: '',
-        password: '',
-    }
-    const [inp, setInpt] = useState(intitialState);
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [allInputFilled, setAllInputFilled] = useState(false);
+    const [verifyMsg, setVerifyMsg] = useState('');
+    const [token, setToken] = useState({
+        token: '',
+        status: false
+    });
 
-    // get form input
-    const getInput = (e) => {
-        const { name, value } = e.target;
-        setInpt({ ...inp, [name]: value })
-    }
+    useEffect(() => {
+        if (email && password) {
+            setAllInputFilled(true)
+        }
+        else {
+            setAllInputFilled(false)
+        }
+    }, [email, password])
+
 
     // submit form
-    const submit = (e) => {
+    const submit = async (e) => {
         e.preventDefault();
+
         setSending(true)
-        console.log(inp)
+        const url = process.env.REACT_APP_BACKEND_BASE_URL
+        const data_ = { email, password }
+
+        try {
+            const { data } = await axios.post(`${url}/auth/signin`, { ...data_ });
+            toast(data.msg, { type: 'success' })
+            setSending(false);
+            setVerifyMsg('')
+
+            setEmail("");
+            setPassword("");
+        }
+        catch (err) {
+            if (err.response) {
+                toast(err.response.data.msg, { type: 'error' })
+
+                if (err.response.data.msg.includes("Please verify your account to login in")) {
+                    setVerifyMsg(true)
+
+                    Cookies.set("access", email)
+                }
+            }
+            else {
+                toast(err.message, { type: 'error' })
+            }
+
+            setSending(false)
+
+            setEmail("");
+            setPassword("");
+        }
     }
 
-    const resendLink = () => {
-        setResend(true)
-        console.log('Link Resent')
+    const resendLink = async () => {
+
+        setSendingLink(true)
+        const url = process.env.REACT_APP_BACKEND_BASE_URL
+
+        try {
+            const { data } = await axios.post(`${url}/auth/resend-verification-link`, { email: Cookies.get("access") });
+            toast(data.msg, { type: 'success' })
+            setSendingLink(false);
+            Cookies.remove("access")
+
+            if (data.token) {
+                setToken({ token: data.token, status: true })
+            }
+
+        }
+        catch (err) {
+            if (err.response) {
+                toast(err.response.data.msg, { type: 'error' })
+            }
+            else {
+                toast(err.message, { type: 'error' })
+            }
+
+            setSendingLink(false)
+            setToken({ token: "", status: false })
+        }
     }
 
     return (
@@ -55,55 +119,54 @@ export default function Signin_C() {
 
                             <InputWrapper>
                                 <InputIcon right="" left="0">
-                                    <EmailRoundedIcon />
+                                    <EmailRoundedIcon className='icon' />
                                 </InputIcon>
                                 <input
-                                    type="text"
-                                    name="email"
                                     autoFocus
-                                    value={inp.email || ''}
+                                    type="text"
+                                    value={email || ''}
                                     placeholder="Email/Username"
-                                    onInput={getInput}
+                                    onChange={(e) => setEmail(e.target.value)}
                                 />
                             </InputWrapper>
 
                             <InputWrapper>
                                 <InputIcon right="" left="0">
-                                    <VpnKeyRoundedIcon />
+                                    <VpnKeyRoundedIcon className='icon' />
                                 </InputIcon>
                                 <input
                                     type={showPassword ? "text" : "password"}
-                                    name="password"
-                                    value={inp.password || ''}
+                                    value={password || ''}
                                     placeholder="Password"
-                                    onInput={getInput}
+                                    onInput={(e) => setPassword(e.target.value)}
                                 />
                                 <InputIcon onClick={() => setShowPassword(!showPassword)} right="0" left="">
-                                    {showPassword ? <VisibilityOffRoundedIcon /> : <RemoveRedEyeRoundedIcon />}
+                                    {showPassword ? <VisibilityOffRoundedIcon className='icon' /> : <RemoveRedEyeRoundedIcon className='icon' />}
                                 </InputIcon>
                             </InputWrapper>
 
-                            <div className="d-flex justify-content-between mb-2">
-                                <MDBCheckbox name='flexCheck' value='' id='flexCheckDefault' label='Remember me' />
-                                <Link to="/auth/forgot-password-request">Forgot password?</Link>
-                            </div>
+
+                            {
+                                verifyMsg ?
+                                    <div className="d-flex justify-content-between mb-2">
+                                        {sendLink ? <Spinner_ size="sm" /> : <a onClick={resendLink} style={{ cursor: 'pointer' }}>Resend Link</a>}
+                                    </div>
+                                    : ''
+                            }
 
                             <div className='text-center text-md-start mt- pt-2'>
-                                <Btn disabled={sending} color="var(--blue)" link={false}>
-                                    {sending ? <Spinner_ size="sm" /> : "Sign In"}
+
+                                <Btn disabled={sending || !allInputFilled} color="var(--blue)" link={false}>
+                                    {sending ? <Spinner_ size="sm" /> : "Sign Up"}
                                 </Btn>
 
-                                <p className="small fw-bold mt-2 pt-1 mb-2">
-                                    Don't have an account? <Link to="/auth/signup" className="link-danger">Sign up</Link>
-                                </p>
-
-                                <div className="small fw-bold mt-2 pt-1 mb-2">
-                                    Verify your email? {
-                                        resend ? <Spinner_ size="sm" /> : <Link onClick={resendLink} className="link-danger">Resend link</Link>
-                                    }
-
+                                <div>
+                                    {token.status ? <a style={{ cursor: 'pointer' }} target="_blank" href={`${process.env.REACT_APP_FRONTEND_BASE_URL}/auth/verify-email/${token.token}`}>Verify Your Account</a> : ""}
                                 </div>
 
+                                <p className="small fw-bold mt-2 pt-1 mb-2">
+                                    Don't have an account? <Link to="/auth/signup" className="link-danger">Sign Up</Link>
+                                </p>
                             </div>
 
                         </form>
@@ -145,7 +208,7 @@ const InputWrapper = styled.div`
 
         &: focus{
             outline: none;
-            border: 2px solid var(--blue);;
+            border: 2px solid var(--blue);
         }
     } 
 
@@ -168,10 +231,13 @@ const InputIcon = styled.div`
     bottom: 0;
     left: ${({ left }) => left};
     right: ${({ right }) => right};
-    font-size: 2rem;
+    font-size: .8rem;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100%;
-    color: var(--blue);
+
+    .icon {
+        font-size: 1rem;
+    }
 `

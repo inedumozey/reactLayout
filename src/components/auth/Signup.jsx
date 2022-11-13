@@ -13,34 +13,85 @@ import FlagRoundedIcon from '@mui/icons-material/FlagRounded';
 import Btn from '../Btn/Btn';
 import Cookies from "js-cookie";
 import Spinner_ from '../spinner/Spinner';
+import axios from 'axios'
+import { toast } from 'react-toastify';
 
 export default function Signup_C() {
     const [showPassword, setShowPassword] = useState(false);
     const [showCPassword, setShowCPassword] = useState(false);
     const [sending, setSending] = useState(false);
 
-    const intitialState = {
-        email: '',
-        username: '',
-        password: '',
-        cpassword: '',
-        mobile: '',
-        country: '',
-        address: ''
-    }
-    const [inp, setInpt] = useState(intitialState);
+    const [email, setEmail] = useState("");
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+    const [cpassword, setCpassword] = useState("");
+    const [phone, setPhone] = useState("");
+    const [country, setCountry] = useState("");
+    const [address, setAddress] = useState("");
+    const [acceptTerm, setAcceptTerm] = useState(false);
+    const [allInputFilled, setAllInputFilled] = useState(false);
+    const [token, setToken] = useState({
+        token: '',
+        status: false
+    });
 
-    // get form input
-    const getInput = (e) => {
-        const { name, value } = e.target;
-        setInpt({ ...inp, [name]: value })
-    }
+    useEffect(() => {
+        if (email && username && password && cpassword && phone && country && address && acceptTerm) {
+            setAllInputFilled(true)
+        }
+        else {
+            setAllInputFilled(false)
+        }
+    }, [email, username, password, cpassword, phone, country, address, acceptTerm])
+
 
     // submit form
-    const submit = (e) => {
+    const submit = async (e) => {
         e.preventDefault();
+
         setSending(true)
-        console.log(inp)
+        const url = process.env.REACT_APP_BACKEND_BASE_URL
+
+        const data_ = { email, username, password, cpassword, phone, country, address }
+        try {
+            const { data } = await axios.post(`${url}/auth/signup`, { ...data_ });
+            toast(data.msg, { type: 'success' })
+
+            // if the backend is dev mode, token will be sent here instead of to the email
+            if (data.token) {
+                setToken({ token: data.token, status: true })
+            }
+
+            setSending(false);
+
+            setEmail("");
+            setUsername("");
+            setPassword("");
+            setCpassword("");
+            setPhone("");
+            setCountry("");
+            setAddress("");
+        }
+        catch (err) {
+            if (err.response) {
+                toast(err.response.data.msg, { type: 'error' })
+            }
+            else {
+                toast(err.message, { type: 'error' })
+            }
+
+            setToken({ token: "", status: false })
+
+            setSending(false);
+
+            setEmail("");
+            setUsername("");
+            setPassword("");
+            setCpassword("");
+            setPhone("");
+            setCountry("");
+            setAddress("");
+        }
     }
 
     return (
@@ -59,104 +110,102 @@ export default function Signup_C() {
 
                             <InputWrapper>
                                 <InputIcon right="" left="0">
-                                    <EmailRoundedIcon />
+                                    <EmailRoundedIcon className='icon' />
                                 </InputIcon>
                                 <input
                                     autoFocus
                                     type="text"
-                                    name="email"
-                                    value={inp.email || ''}
+                                    value={email || ''}
                                     placeholder="Email"
-                                    onInput={getInput}
+                                    onChange={(e) => setEmail(e.target.value)}
                                 />
                             </InputWrapper>
 
                             <InputWrapper>
                                 <InputIcon right="" left="0">
-                                    <PersonRoundedIcon />
+                                    <PersonRoundedIcon className='icon' />
                                 </InputIcon>
                                 <input
                                     type="text"
-                                    name="username"
-                                    value={inp.username || ''}
+                                    value={username || ''}
                                     placeholder="Username"
-                                    onInput={getInput}
+                                    onInput={(e) => setUsername(e.target.value)}
                                 />
                             </InputWrapper>
 
                             <InputWrapper>
                                 <InputIcon right="" left="0">
-                                    <VpnKeyRoundedIcon />
+                                    <VpnKeyRoundedIcon className='icon' />
                                 </InputIcon>
                                 <input
                                     type={showPassword ? "text" : "password"}
-                                    name="password"
-                                    value={inp.password || ''}
+                                    value={password || ''}
                                     placeholder="Password"
-                                    onInput={getInput}
+                                    onInput={(e) => setPassword(e.target.value)}
                                 />
                                 <InputIcon onClick={() => setShowPassword(!showPassword)} right="0" left="">
-                                    {showPassword ? <VisibilityOffRoundedIcon /> : <RemoveRedEyeRoundedIcon />}
+                                    {showPassword ? <VisibilityOffRoundedIcon className='icon' /> : <RemoveRedEyeRoundedIcon className='icon' />}
                                 </InputIcon>
                             </InputWrapper>
 
                             <InputWrapper>
                                 <InputIcon right="" left="0">
-                                    <VpnKeyRoundedIcon />
+                                    <VpnKeyRoundedIcon className='icon' />
                                 </InputIcon>
                                 <input
                                     type={showCPassword ? "text" : "password"}
-                                    name="cpassword"
-                                    value={inp.cpassword || ''}
+                                    value={cpassword || ''}
                                     placeholder="Confirm Password"
-                                    onInput={getInput}
+                                    onInput={(e) => setCpassword(e.target.value)}
                                 />
                                 <InputIcon onClick={() => setShowCPassword(!showCPassword)} right="0" left="">
-                                    {showPassword ? <VisibilityOffRoundedIcon /> : <RemoveRedEyeRoundedIcon />}
+                                    {showCPassword ? <VisibilityOffRoundedIcon className='icon' /> : <RemoveRedEyeRoundedIcon className='icon' />}
                                 </InputIcon>
                             </InputWrapper>
 
                             <InputWrapper>
                                 <InputIcon right="" left="0">
-                                    <LocalPhoneRoundedIcon />
+                                    <LocalPhoneRoundedIcon className='icon' />
                                 </InputIcon>
                                 <input
-                                    type="number"
-                                    name="mobile"
-                                    value={inp.mobile || ''}
+                                    type="text"
+                                    value={phone || ''}
                                     placeholder="Phone Number"
-                                    onInput={getInput}
+                                    onInput={(e) => setPhone(e.target.value)}
                                 />
                             </InputWrapper>
 
                             <InputWrapper>
                                 <InputIcon right="" left="0">
-                                    <FlagRoundedIcon />
+                                    <FlagRoundedIcon className='icon' />
                                 </InputIcon>
                                 <input
                                     type="text"
-                                    name="country"
-                                    value={inp.country || ''}
+                                    value={country || ''}
                                     placeholder="Country"
-                                    onInput={getInput}
+                                    onInput={(e) => setCountry(e.target.value)}
                                 />
                             </InputWrapper>
 
                             <InputWrapper>
                                 <InputIcon right="" left="0">
-                                    <AlternateEmailRoundedIcon />
+                                    <AlternateEmailRoundedIcon className='icon' />
                                 </InputIcon>
                                 <input
                                     type="text"
-                                    name="address"
-                                    value={inp.address || ''}
+                                    value={address || ''}
                                     placeholder="Address"
-                                    onInput={getInput}
+                                    onInput={(e) => setAddress(e.target.value)}
                                 />
                             </InputWrapper>
 
                             <div className="d-flex justify-content-between mb-2">
-                                <MDBCheckbox name='flexCheck' value='' id='flexCheckDefault' label='Accept terms' />
+                                <MDBCheckbox
+                                    name='flexCheck'
+                                    id='flexCheckDefault'
+                                    label='Accept terms'
+                                    onChange={(e) => setAcceptTerm(e.target.checked)}
+                                />
                             </div>
 
                             <div className='text-center text-md-start mt- pt-2'>
@@ -164,9 +213,13 @@ export default function Signup_C() {
                                     By creating an account you are accepting our <Link to="/auth/tc" className="link-danger">Terms & Conditions</Link>
                                 </p>
 
-                                <Btn disabled={sending} color="var(--blue)" link={false}>
+                                <Btn disabled={sending || !allInputFilled} color="var(--blue)" link={false}>
                                     {sending ? <Spinner_ size="sm" /> : "Sign Up"}
                                 </Btn>
+
+                                <div>
+                                    {token.status ? <a style={{ cursor: 'pointer' }} target="_blank" href={`${process.env.REACT_APP_FRONTEND_BASE_URL}/auth/verify-email/${token.token}`}>Verify Your Account</a> : ""}
+                                </div>
                                 <p className="small fw-bold mt-2 pt-1 mb-2">
                                     Have an account? <Link to="/auth/signin" className="link-danger">Sign in</Link>
                                 </p>
@@ -234,10 +287,13 @@ const InputIcon = styled.div`
     bottom: 0;
     left: ${({ left }) => left};
     right: ${({ right }) => right};
-    font-size: 2rem;
+    font-size: .8rem;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100%;
-    color: var(--blue);
+
+    .icon {
+        font-size: 1rem;
+    }
 `
