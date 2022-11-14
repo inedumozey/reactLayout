@@ -18,7 +18,6 @@ async function refreshToken() {
             setCookies(data.accesstoken, data.refreshtoken, data.data.role)
         }
         catch (err) {
-            console.log(err)
             if (err.response) {
                 toast(err.response.data.msg, { type: 'error' })
             }

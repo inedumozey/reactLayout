@@ -4,6 +4,7 @@ import { useLocation } from "react-router-dom";
 import Layout from './layouts';
 import { Context, state } from './context/Context';
 import Cookies from "js-cookie";
+import fetchConfig from './utils/fetchConfig';
 
 
 function App() {
@@ -22,6 +23,9 @@ function App() {
 
     // remove username or email's for resending verify email link from cookies
     Cookies.remove("access")
+
+    // fetch website configurations
+    fetchConfig()
   })
 
   return (

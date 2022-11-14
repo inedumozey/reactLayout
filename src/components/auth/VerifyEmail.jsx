@@ -95,7 +95,7 @@ export default function VerifyEmail_C() {
                 }
 
                 // start calling verify api
-                if (!loading && !fetched) {
+                if (!loading && !fetched.status) {
                     return <>
                         <h3 style={{ textAlign: 'center' }}>Welcome to {contact.name}!</h3>
                         <div style={{ textAlign: 'center' }}>Almost there</div>
