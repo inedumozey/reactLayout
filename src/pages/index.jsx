@@ -11,8 +11,8 @@ import Home from './landing/Home';
 
 //auth pages
 import Index from './auth/';
+import VerifyForgotPassword from './auth/VerifyForgotPassword';
 import ForgotPassword from './auth/ForgotPassword';
-import ForgotPasswordRequest from './auth/ForgotPasswordRequest';
 import Signup from './auth/Signup';
 import Signin from './auth/Signin';
 import TC from './auth/TC';
@@ -67,8 +67,8 @@ export default function Pages() {
                 <Route path="" element={<Index />} />
                 <Route path="signup" element={<Signup />} />
                 <Route path="signin" element={<Signin />} />
-                <Route path="forgot-password-request" element={<ForgotPasswordRequest />} />
                 <Route path="forgot-password" element={<ForgotPassword />} />
+                <Route path="verify-forgot-password/:token" element={<VerifyForgotPassword />} />
                 <Route path="tc" element={<TC />} />
                 <Route path="verify-email/:token" element={<VerifyEmail />} />
             </Route>

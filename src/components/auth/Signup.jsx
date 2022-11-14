@@ -11,10 +11,10 @@ import LocalPhoneRoundedIcon from '@mui/icons-material/LocalPhoneRounded';
 import AlternateEmailRoundedIcon from '@mui/icons-material/AlternateEmailRounded';
 import FlagRoundedIcon from '@mui/icons-material/FlagRounded';
 import Btn from '../Btn/Btn';
-import Cookies from "js-cookie";
 import Spinner_ from '../spinner/Spinner';
 import axios from 'axios'
 import { toast } from 'react-toastify';
+const BASE_URL = process.env.REACT_APP_BACKEND_BASE_URL
 
 export default function Signup_C() {
     const [showPassword, setShowPassword] = useState(false);
@@ -50,11 +50,10 @@ export default function Signup_C() {
         e.preventDefault();
 
         setSending(true)
-        const url = process.env.REACT_APP_BACKEND_BASE_URL
 
         const data_ = { email, username, password, cpassword, phone, country, address }
         try {
-            const { data } = await axios.post(`${url}/auth/signup`, { ...data_ });
+            const { data } = await axios.post(`${BASE_URL}/auth/signup`, { ...data_ });
             toast(data.msg, { type: 'success' })
 
             // if the backend is dev mode, token will be sent here instead of to the email
@@ -83,14 +82,6 @@ export default function Signup_C() {
             setToken({ token: "", status: false })
 
             setSending(false);
-
-            setEmail("");
-            setUsername("");
-            setPassword("");
-            setCpassword("");
-            setPhone("");
-            setCountry("");
-            setAddress("");
         }
     }
 
@@ -199,13 +190,13 @@ export default function Signup_C() {
                                 />
                             </InputWrapper>
 
-                            <div className="d-flex justify-content-between mb-2">
-                                <MDBCheckbox
-                                    name='flexCheck'
-                                    id='flexCheckDefault'
-                                    label='Accept terms'
+                            <div className="d-flex mb-2">
+                                <input
+                                    type='checkbox'
+                                    id="checkbox"
                                     onChange={(e) => setAcceptTerm(e.target.checked)}
                                 />
+                                <label style={{ fontSize: '.7rem', paddingLeft: '3px' }} for="checkbox">Accept Terms</label>
                             </div>
 
                             <div className='text-center text-md-start mt- pt-2'>

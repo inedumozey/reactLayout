@@ -1,45 +1,61 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from "react-router-dom";
-import { MDBContainer, MDBCol, MDBRow, MDBCheckbox } from 'mdb-react-ui-kit';
+import { MDBContainer, MDBCol, MDBRow } from 'mdb-react-ui-kit';
 import styled from 'styled-components';
-import VpnKeyRoundedIcon from '@mui/icons-material/VpnKeyRounded';
-import RemoveRedEyeRoundedIcon from '@mui/icons-material/RemoveRedEyeRounded';
-import VisibilityOffRoundedIcon from '@mui/icons-material/VisibilityOffRounded';
+import EmailRoundedIcon from '@mui/icons-material/EmailRounded';
 import Btn from '../Btn/Btn';
-import Cookies from "js-cookie";
 import Spinner_ from '../spinner/Spinner';
+import axios from 'axios'
+import { toast } from 'react-toastify';
+const BASE_URL = process.env.REACT_APP_BACKEND_BASE_URL;
+
+
 
 export default function ForgotPassword_C() {
-    const [showPassword, setShowPassword] = useState(false);
-    const [showCPassword, setShowCPassword] = useState(false);
     const [sending, setSending] = useState(false);
-
-    const intitialState = {
-        password: '',
-        cpassword: ''
-    }
-    const [inp, setInpt] = useState(intitialState);
-
-    // get form input
-    const getInput = (e) => {
-        const { name, value } = e.target;
-        setInpt({ ...inp, [name]: value })
-    }
+    const [email, setEmail] = useState("");
+    const [token, setToken] = useState({
+        token: '',
+        status: false
+    });
 
     // submit form
-    const submit = (e) => {
+    const submit = async (e) => {
         e.preventDefault();
         setSending(true)
-        console.log(inp)
+
+        try {
+            const { data } = await axios.post(`${BASE_URL}/auth/forgot-password`, { email });
+            toast(data.msg, { type: 'success' });
+
+            if (data.token) {
+                setToken({ token: data.token, status: true })
+            }
+
+            setSending(false);
+            setEmail('')
+
+        }
+        catch (err) {
+            if (err.response) {
+                toast(err.response.data.msg, { type: 'error' })
+
+            }
+            else {
+                toast(err.message, { type: 'error' })
+            }
+
+            setSending(false)
+        }
     }
 
     return (
         <Wrapper>
             <MDBContainer fluid className="p-3h-custom">
-                <h3 style={{ textAlign: 'center', color: 'var(--blue)', fontSize: '1.5rem' }}>RESET YOUR PASSWORD</h3>
+                <h3 style={{ textAlign: 'center', color: 'var(--blue)', fontSize: '1.5rem' }}>FORGOT PASSWORD</h3>
                 <MDBRow>
 
-                    <MDBCol style={{ maxWidth: '500px' }} col='10' md='6'>
+                    <MDBCol col='10' md='6'>
                         <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp" className="img-fluid" alt="Sample image" />
                     </MDBCol>
 
@@ -49,44 +65,30 @@ export default function ForgotPassword_C() {
 
                             <InputWrapper>
                                 <InputIcon right="" left="0">
-                                    <VpnKeyRoundedIcon />
+                                    <EmailRoundedIcon className='icon' />
                                 </InputIcon>
                                 <input
-                                    type={showPassword ? "text" : "password"}
-                                    name="password"
-                                    value={inp.password || ''}
-                                    placeholder="Password"
-                                    onInput={getInput}
+                                    type="text"
+                                    autoFocus
+                                    value={email || ''}
+                                    placeholder="Email/Username"
+                                    onInput={(e) => setEmail(e.target.value)}
                                 />
-                                <InputIcon onClick={() => setShowPassword(!showPassword)} right="0" left="">
-                                    {showPassword ? <VisibilityOffRoundedIcon /> : <RemoveRedEyeRoundedIcon />}
-                                </InputIcon>
-                            </InputWrapper>
-
-                            <InputWrapper>
-                                <InputIcon right="" left="0">
-                                    <VpnKeyRoundedIcon />
-                                </InputIcon>
-                                <input
-                                    type={showCPassword ? "text" : "password"}
-                                    name="cpassword"
-                                    value={inp.cpassword || ''}
-                                    placeholder="Confirm Password"
-                                    onInput={getInput}
-                                />
-                                <InputIcon onClick={() => setShowCPassword(!showCPassword)} right="0" left="">
-                                    {showPassword ? <VisibilityOffRoundedIcon /> : <RemoveRedEyeRoundedIcon />}
-                                </InputIcon>
                             </InputWrapper>
 
                             <div className='text-center text-md-start mt- pt-2'>
-                                <Btn disabled={sending} color="var(--blue)" link={false}>
-                                    {sending ? <Spinner_ size="sm" /> : "Reset"}
+                                <Btn disabled={sending || !email} color="var(--blue)" link={false}>
+                                    {sending ? <Spinner_ size="sm" /> : "Submit"}
                                 </Btn>
-                                <p className="small fw-bold mt-2 pt-1 mb-2">
-                                    Have an account? <Link to="/auth/signin" className="link-danger">Sign in</Link>
-                                </p>
 
+                                <div>
+                                    {token.status ? <a style={{ cursor: 'pointer' }} target="_blank" href={`${process.env.REACT_APP_FRONTEND_BASE_URL}/auth/verify-forgot-password/${token.token}`}>Reset Password</a> : ""}
+                                </div>
+
+
+                                <p className="small fw-bold mt-2 pt-1 mb-2">
+                                    Back to <Link to="/auth/signin" className="link-danger">Login</Link>
+                                </p>
                             </div>
 
                         </form>
@@ -128,7 +130,7 @@ const InputWrapper = styled.div`
 
         &: focus{
             outline: none;
-            border: 2px solid var(--blue);
+            border: 2px solid var(--blue);;
         }
     } 
 
@@ -151,10 +153,13 @@ const InputIcon = styled.div`
     bottom: 0;
     left: ${({ left }) => left};
     right: ${({ right }) => right};
-    font-size: 2rem;
+    font-size: .8rem;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100%;
-    color: var(--blue);
+
+    .icon {
+        font-size: 1rem;
+    }
 `

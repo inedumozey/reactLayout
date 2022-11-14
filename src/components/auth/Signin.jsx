@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { MDBContainer, MDBCol, MDBRow, MDBCheckbox } from 'mdb-react-ui-kit';
 import styled from 'styled-components';
 import VpnKeyRoundedIcon from '@mui/icons-material/VpnKeyRounded';
@@ -7,12 +7,15 @@ import RemoveRedEyeRoundedIcon from '@mui/icons-material/RemoveRedEyeRounded';
 import VisibilityOffRoundedIcon from '@mui/icons-material/VisibilityOffRounded';
 import EmailRoundedIcon from '@mui/icons-material/EmailRounded';
 import Btn from '../Btn/Btn';
-import Cookies from "js-cookie";
 import Spinner_ from '../spinner/Spinner';
 import axios from 'axios'
 import { toast } from 'react-toastify';
+import setCookies from '../../utils/setCookies';
+import Cookies from 'js-cookie';
+const BASE_URL = process.env.REACT_APP_BACKEND_BASE_URL;
 
 export default function Signin_C() {
+    const navigate = useNavigate()
     const [showPassword, setShowPassword] = useState(false);
     const [sending, setSending] = useState(false);
     const [sendLink, setSendingLink] = useState(false);
@@ -41,15 +44,22 @@ export default function Signin_C() {
         e.preventDefault();
 
         setSending(true)
-        const url = process.env.REACT_APP_BACKEND_BASE_URL
         const data_ = { email, password }
 
         try {
-            const { data } = await axios.post(`${url}/auth/signin`, { ...data_ });
+            const { data } = await axios.post(`${BASE_URL}/auth/signin`, { ...data_ });
             toast(data.msg, { type: 'success' })
+
             setSending(false);
             setVerifyMsg('')
 
+            // log the user in
+            setCookies(data.accesstoken, data.refreshtoken, data.data.role)
+
+            // redirect the user home after some time (at home, he will be redirected to dashboard if refreshtoken exist in cookies)
+            navigate('/')
+
+            // clear input
             setEmail("");
             setPassword("");
         }
@@ -57,10 +67,15 @@ export default function Signin_C() {
             if (err.response) {
                 toast(err.response.data.msg, { type: 'error' })
 
+                // if user not yet verified, seve their info in cookies so that it can be used to resend verification link incase they have lost the link from their email
                 if (err.response.data.msg.includes("Please verify your account to login in")) {
                     setVerifyMsg(true)
 
-                    Cookies.set("access", email)
+                    Cookies.set("access", email);
+
+                    // clear input
+                    setEmail("");
+                    setPassword("");
                 }
             }
             else {
@@ -68,19 +83,16 @@ export default function Signin_C() {
             }
 
             setSending(false)
-
-            setEmail("");
-            setPassword("");
         }
     }
 
+    // resend email verification link
     const resendLink = async () => {
 
         setSendingLink(true)
-        const url = process.env.REACT_APP_BACKEND_BASE_URL
 
         try {
-            const { data } = await axios.post(`${url}/auth/resend-verification-link`, { email: Cookies.get("access") });
+            const { data } = await axios.post(`${BASE_URL}/auth/resend-verification-link`, { email: Cookies.get("access") });
             toast(data.msg, { type: 'success' })
             setSendingLink(false);
             Cookies.remove("access")
@@ -144,6 +156,11 @@ export default function Signin_C() {
                                     {showPassword ? <VisibilityOffRoundedIcon className='icon' /> : <RemoveRedEyeRoundedIcon className='icon' />}
                                 </InputIcon>
                             </InputWrapper>
+
+                            <div className="d-flex justify-content-between mb-2">
+                                <MDBCheckbox name='flexCheck' value='' id='flexCheckDefault' label='Remember me' />
+                                <Link to="/auth/forgot-password">Forgot password?</Link>
+                            </div>
 
 
                             {
