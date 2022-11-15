@@ -26,7 +26,7 @@ const ScrollBar = () => css`
 const GlobalStyle = createGlobalStyle`
     :root{
         --blue: #007bff;
-        --indigo: #6610f2;
+        --blue-deep: #6861ce;
         --purple: #6f42c1;
         --pink: #e83e8c;
         --red: #dc3545;
@@ -39,6 +39,7 @@ const GlobalStyle = createGlobalStyle`
         --gray: #6c757d;
         --gray-dark: #343a40;
         --gray-light: #bdbdbd40;
+        --gray-pale: #f7f7f7;
         --text: #000000bf;
         --primary: #007bff;
         --secondary: #6c757d;
