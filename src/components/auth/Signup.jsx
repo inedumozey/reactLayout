@@ -91,7 +91,7 @@ export default function Signup_C() {
                 <h3 style={{ textAlign: 'center', color: 'var(--blue)', fontSize: '1.5rem' }}>SIGN UP</h3>
                 <MDBRow>
 
-                    <MDBCol col='10' md='6'>
+                    <MDBCol className='bg' col='10' md='6'>
                         <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp" className="img-fluid" alt="Sample image" />
                     </MDBCol>
 
@@ -231,9 +231,15 @@ const Wrapper = styled.div`
     padding: 0 ${({ theme }) => theme.lg_padding} 20px 0;
     @media (max-width: ${({ theme }) => theme.md_screen}){
         padding: 0 ${({ theme }) => theme.md_padding} 20px 0;
+
     }
     @media (max-width: ${({ theme }) => theme.sm_screen}){
         padding: 0 ${({ theme }) => theme.sm_padding} 20px 0;
+    }
+    @media (max-width: 767px){
+        .bg {
+            display: none;
+        }
     }
 `
 

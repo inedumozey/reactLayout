@@ -18,7 +18,8 @@ export default function VerifyEmail_C() {
         success: false
     })
     const time1 = 7000
-    const time2 = 50000
+    const time2 = 7000
+    const time3 = 3000
 
     setTimeout(() => {
         setLoading(false)
@@ -64,7 +65,10 @@ export default function VerifyEmail_C() {
         if (!loading) {
 
             // send token to backend
-            sendToken()
+            setTimeout(() => {
+                sendToken()
+            }, time3)
+
         }
     }, [loading])
 
@@ -87,7 +91,7 @@ export default function VerifyEmail_C() {
                     return <>
                         <h3 style={{ textAlign: 'center' }}>Welcome to {contact.name}!</h3>
                         <div style={{ textAlign: 'center' }}>Wait while we activate your accout</div>
-                        <h4 style={{ textAlign: 'center' }}>Loading...</h4>
+                        <div style={{ textAlign: 'center', fontSize: '.7rem' }}>Loading...</div>
                         <div className="img">
                             <img style={{ width: '100%', height: '100%' }} src="/verify-email1.gif" />
                         </div>
@@ -99,7 +103,7 @@ export default function VerifyEmail_C() {
                     return <>
                         <h3 style={{ textAlign: 'center' }}>Welcome to {contact.name}!</h3>
                         <div style={{ textAlign: 'center' }}>Almost there</div>
-                        <h4 style={{ textAlign: 'center' }}>Loading...</h4>
+                        <h4 style={{ textAlign: 'center', fontSize: '.7rem' }}>Loading...</h4>
                         <div className="img">
                             <img style={{ width: '100%', height: '100%' }} src="/verify-email2.gif" />
                         </div>
@@ -129,7 +133,15 @@ export default function VerifyEmail_C() {
                                 <>
                                     <div style={{ textAlign: 'center', color: '#c20' }}>{fetched.msg}</div>
 
-                                    <div className="img">
+                                    <div className="img"
+                                        style={{
+                                            width: '40%',
+                                            height: '40%',
+                                            maxWidth: '300px',
+                                            maxHeight: '300px',
+                                            minWidth: '200px',
+                                            minHeight: '200px',
+                                        }}>
                                         <img style={{ width: '100%', height: '100%' }} src="/404_1.png" />
                                     </div>
                                 </>
@@ -137,7 +149,7 @@ export default function VerifyEmail_C() {
                 }
             }())}
 
-        </VerifyWrapper>
+        </VerifyWrapper >
     )
 }
 
