@@ -32,7 +32,9 @@ export default function User({ children }) {
                 isExpanded={isExpanded}
             >
                 <MainContent headerHeight={headerHeight}>
-                    <div style={{ width: '100px', height: '100px', background: '#aaa' }}>Main</div>
+                    <div style={{ width: '100px', height: '100px', background: '#aaa' }}>
+                        {children}
+                    </div>
                 </MainContent>
                 <FooterStyle headerHeight={headerHeight}>Footer</FooterStyle>
             </MainStyle>
