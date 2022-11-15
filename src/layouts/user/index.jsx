@@ -1,7 +1,6 @@
 import styled from 'styled-components'
 import React, { useState, useEffect } from 'react';
 import Header from './header/Header';
-import Footer from './footer/Footer';
 import Aside from './aside/Aside';
 
 const headerHeight = '63px'
